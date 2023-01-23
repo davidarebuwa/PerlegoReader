@@ -12,6 +12,11 @@
   </p>
 </p>
 
+### Screenshot
+
+    <img src="https://i.imgur.com/wTqzojq.mp4" alt="Logo" width="100" height="100">
+
+
 ### Architecture Overview
 
 Upon opening the app, the user is presented with a home screen. The list of planets and their associated Wikipedia articles are loaded from a JSON file, simulating an API call. This allows for flexibility in the future as the data can be retrieved from any external source. The contents of the file are stored in the app's state using a reducer. Once the user taps on the start button, they are taken to the menu list where they can start exploring the different planets.
