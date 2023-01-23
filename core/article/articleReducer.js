@@ -11,8 +11,6 @@ const {
 const InitialState = Record({
   isFetching: false,
   error: null,
-  page: 1,
-  pageCount: 0,
   articles: [],
   articleIndex: 0,
 });

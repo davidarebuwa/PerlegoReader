@@ -22,6 +22,7 @@ const ReaderMenuScreen = (props) => {
         <FlatList
             data={Object.values(PLANETS)}
             style={{flex: 1, margin: 10}}
+            keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
                 <View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", margin: 10}}
                 key={`item-${item.id}-${item.title}`}
@@ -31,13 +32,8 @@ const ReaderMenuScreen = (props) => {
                     </TouchableOpacity>
                     </View>
             )}
-            keyExtractor={item => item.id}
+            
         />
-
-        <Button
-            title="Go to Article"
-            onPress={() => props.navigation.navigate("Article")}
-            />
       </View>
     </RootComponent>
   );
