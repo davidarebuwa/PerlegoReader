@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/davidarebuwa/PerlegoReader">
-    <img src="https://i.fbcd.co/products/original/828c9b72e5970bba009cbf375bd2223d8ec56765e4718ac3f5bbe3240ba1fb5c.jpg" alt="Logo" width="80" height="80">
+    <img src="https://pbs.twimg.com/profile_images/1306155249640636417/uxhtOhww_400x400.jpg" alt="Logo" width="100" height="100">
   </a>
 
   <p align="center">
