@@ -34,10 +34,8 @@ In the project directory, you can then run:
 ### `npm run start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-iOS: react-native run-ios
-Android: react-native run-android
+To run unit tests:
 
 ### `npm test`
 
