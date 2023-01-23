@@ -5,7 +5,7 @@
     <img src="https://pbs.twimg.com/profile_images/1306155249640636417/uxhtOhww_400x400.jpg" alt="Logo" width="100" height="100">
   </a>
 
-  <p align="center">
+  <p align="left">
   <strong>This is a sample React Native App with Jest and React Testing Library"</strong>
     <br />
     <br />
