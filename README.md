@@ -1,6 +1,6 @@
 # PerlegoReader
 <br />
-<p align="center">
+<p align="left">
   <a href="https://github.com/davidarebuwa/PerlegoReader">
     <img src="https://pbs.twimg.com/profile_images/1306155249640636417/uxhtOhww_400x400.jpg" alt="Logo" width="100" height="100">
   </a>
