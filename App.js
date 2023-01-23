@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from "react-redux";
+import configureStore from './core/store';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
@@ -10,11 +12,14 @@ import ReaderHomeScreen from './screens/ReaderHomeScreen';
 import ReaderMenuScreen from './screens/ReaderMenuScreen';
 import ReaderArticleScreen from './screens/ReaderArticleScreen';
 
+const store = configureStore();
+
 const Stack = createNativeStackNavigator();
 
 
 export default function App() {
   return (
+  <Provider store={store}>
   <SafeAreaProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -24,6 +29,7 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
     </SafeAreaProvider>
+    </Provider>
   );
 }
 

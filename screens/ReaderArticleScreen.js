@@ -1,22 +1,42 @@
-import React, {useState, useRef} from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
-import {WebView} from "react-native-webview";
-
+import React, { useState, useRef, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  ActivityIndicator,
+} from "react-native";
+import { WebView } from "react-native-webview";
+import { useDispatch, useSelector } from "react-redux";
+import { setArticleIndex } from "../core/article/articleActions";
 import { BUTTON_TEXT } from "../constants/constants";
 import RootComponent from "../components/RootComponent";
+import PLANETS from "../constants/planets";
 
-const ReaderArticleScreen = (props) => {
-    const [article, setArticle] = useState('');  //(props.route.params.article);
-    const webviewRef = useRef(null);
+const ReaderArticleScreen = ({ route, navigation }) => {
+  const dispatch = useDispatch();
+  const { selectedPlanet } = route.params;
+  const { articleIndex } = useSelector((state) => state.article);
+  const [currentHeading, setCurrentHeading] = useState(1);
+  const [currentPlanet, setCurrentPlanet] = useState(selectedPlanet);
+  const [isLoading, setIsLoading] = useState(false);
+  const webviewRef = useRef(null);
 
-    const urlToTest = "https://en.wikipedia.org/wiki/Saturn";
+   const renderLoadingView = () => {
+     return (
+       <View
+         style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+       >
+         <ActivityIndicator size="large" />
+       </View>
+     );
+   };
 
-
-    const jsToInject = `
+  const jsToInject = `
 			var current = 0;
 			var headings = $('h2');
 
-			document.addEventListener("message", function(data) {
+			window.addEventListener("message", function(data) {
 				if (data.data === 'Next'){
 					if (headings.length > current) {
 						++current;
@@ -34,30 +54,94 @@ const ReaderArticleScreen = (props) => {
 				event.preventDefault();
 			});`;
 
+  const getPlanet = () => {
+    const planets = Object.values(PLANETS);
+    const planet = planets[0].filter(
+      (planet) => planet.title === selectedPlanet
+    )[0];
+    return planet;
+  };
 
+  const handleNext = () => {
+    //Upon clicking on the Next button, the device should navigate to the next heading tag in the page. (This should trigger a scroll to occur inside the web view.)
+    if (webviewRef.current) {
+        webviewRef.current.injectJavaScript(
+            `document.querySelector('h2').scrollIntoView(); 
+            window.postMessage('Next');
+            true;`
+        );
+    }
+    setCurrentHeading(currentHeading + 1);
+  };
 
+  const handlePrev = () => {
+    //Upon clicking on the Previous button, the device should navigate to the previous heading tag in the page. (This should trigger a scroll to occur inside the web view.)
+    if (webviewRef.current) {
+        webviewRef.current.injectJavaScript(
+            `window.postMessage('Prev');`
+        );
+    }
+    setCurrentHeading(currentHeading - 1);
+  };
+
+  useEffect(() => {
+    const planet = getPlanet();
+    setCurrentPlanet(planet);
+  }, [selectedPlanet]);
+
+  useEffect(() => {
+    const planet = Object.values(PLANETS)[0][articleIndex];
+    setCurrentPlanet(planet);
+  }, [articleIndex]);
+
+  if (isLoading) {
+    return (
+      <RootComponent>
+        <View style={styles.screen}>
+          <ActivityIndicator size="large" />
+        </View>
+      </RootComponent>
+    );
+  }
 
   return (
     <RootComponent>
       <View style={styles.screen}>
         <WebView
-            ref={webviewRef}
-            source={{uri: urlToTest}}
-            injectedJavaScript={jsToInject}
-            javaScriptEnabled={true}
-            style={{flex: 1}}
+          ref={webviewRef}
+          source={{ uri: currentPlanet.url }}
+          startInLoadingState={true}
+          injectedJavaScript={jsToInject}
+          renderLoading={() => (
+            <ActivityIndicator
+              color="black"
+              size="large"
+              style={styles.flexContainer}
+            />
+          )}
+          javaScriptEnabled={true}
+          style={{ flex: 1 }}
         />
-        <View style={{flexDirection: "row", justifyContent: "space-between", margin: 10}}>
-            <Button
-                title={BUTTON_TEXT.PREVIOUS}
-                onPress={() => webviewRef.current.injectJavaScript("window.ReactNativeWebView.postMessage('Previous');")}
-            />
-            <Button
-                title={BUTTON_TEXT.NEXT}
-                onPress={() => webviewRef.current.injectJavaScript("window.ReactNativeWebView.postMessage('Next');")}
-            />
-            </View>
-            
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            margin: 10,
+          }}
+        >
+          <Button
+            title={BUTTON_TEXT.PREVIOUS}
+            onPress={() => {
+              handlePrev();
+            }}
+          />
+          <Button
+            title={BUTTON_TEXT.NEXT}
+            onPress={() => {
+              handleNext();
+            }}
+          />
+        </View>
       </View>
     </RootComponent>
   );

@@ -1,5 +1,5 @@
 module.exports = {
-	RESPONSE: [
+	PLANETS: [
 		{
 			'id': '0',
 			'title': 'Mercury',
