@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import { WebView } from "react-native-webview";
 import { useDispatch, useSelector } from "react-redux";
-import { setArticleIndex } from "../core/article/articleActions";
 import { BUTTON_TEXT } from "../constants/constants";
 import Button from "../components/Button";
 import RootComponent from "../components/RootComponent";
@@ -17,7 +16,6 @@ const ReaderArticleScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const { selectedPlanet } = route.params;
   const { articleIndex } = useSelector((state) => state.article);
-  const [currentHeading, setCurrentHeading] = useState(1);
   const [currentPlanet, setCurrentPlanet] = useState(selectedPlanet);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);

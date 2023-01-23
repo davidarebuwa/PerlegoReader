@@ -9,15 +9,14 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { BUTTON_TEXT, STRINGS, IMG_URLS } from "../constants/constants";
 import RootComponent from "../components/RootComponent";
 import Button from "../components/Button";
-import common from "../constants/styles";
 
 const ReaderHomeScreen = (props) => {
   return (
     <RootComponent>
       <View style={styles.screen}>
-        <View style={{ flex: 1, justifyContent: "center" }}> 
+        <View style={{ flex: 1, justifyContent: "center" }}>
           <Icon
-            name="book-reader"
+            name="rocket"
             size={200}
             color="#000"
             style={{ alignSelf: "center" }}
@@ -31,6 +30,15 @@ const ReaderHomeScreen = (props) => {
             }}
           >
             {STRINGS.WELCOME}
+          </Text>
+          <Text
+            style={{
+              fontSize: 12,
+              textAlign: "center",
+              margin: 10,
+            }}
+          >
+            {STRINGS.DESCRIPTION}
           </Text>
 
           <View

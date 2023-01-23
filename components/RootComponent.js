@@ -1,6 +1,6 @@
 // This the root component and it handle status bar and nodge. This makes sure the main screen appears in safe area
 import React from "react";
-import { View, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import Colors from "../constants/colors";
 

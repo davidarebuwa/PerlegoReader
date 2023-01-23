@@ -12,8 +12,11 @@ const BUTTON_TEXT = {
 };
 
 const STRINGS = {
-    WELCOME : "\nWelcome to Perlego Wiki Reader. \n \n Click the start button to begin reading your first article.",
-    MENU: "Please select a planet to read about.",
+  WELCOME:
+    "\nWelcome to Planet Wiki Reader. \n",
+  DESCRIPTION:
+    "Planet Wiki Reader is a simple app that allows you to read about the planets in our solar system. \n \n You can read about each planet in the solar system by selecting the planet from the menu. \n  \n",
+  MENU: "Please select a planet to read about.",
 };
 
 const PLANETS = {
@@ -28,7 +31,6 @@ const PLANETS = {
 };
 
 const IMG_URLS = {
-  HOME: "https://images.unsplash.com/photo-1608754482805-6f630357358b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
   MERCURY:
     "https://images.unsplash.com/photo-1614724723656-457e78e0b50b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1417&q=80",
   VENUS:
