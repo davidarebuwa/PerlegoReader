@@ -37,10 +37,14 @@ const ReaderHomeScreen = (props) => {
             {STRINGS.DESCRIPTION}
           </Text>
 
-        <Button
-          title="Go to Menu"
-          onPress={() => props.navigation.navigate("Menu")}
-        />
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Button
+              title="Go to Menu"
+              onPress={() => props.navigation.navigate("Menu")}
+            />
+          </View>
         </View>
       </View>
     </RootComponent>
