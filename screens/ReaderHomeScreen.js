@@ -1,12 +1,8 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-} from "react-native";
+import { View, StyleSheet, Text, Button, Image} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-import { BUTTON_TEXT, STRINGS, IMG_URLS } from "../constants/constants";
+import { BUTTON_TEXT, STRINGS } from "../constants/constants";
 import RootComponent from "../components/RootComponent";
 import Button from "../components/Button";
 
@@ -41,16 +37,11 @@ const ReaderHomeScreen = (props) => {
             {STRINGS.DESCRIPTION}
           </Text>
 
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
-          >
-            <Button
-              title={BUTTON_TEXT.MENU}
-              onPress={() => {
-                props.navigation.navigate("Menu");
-              }}
-            />
-          </View>
+        <Button
+          title="Go to Menu"
+          style={{margin: 10}}
+          onPress={() => props.navigation.navigate("Menu")}
+        />
         </View>
       </View>
     </RootComponent>
@@ -60,7 +51,6 @@ const ReaderHomeScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    flexDirection: "column",
   },
 });
 

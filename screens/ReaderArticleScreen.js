@@ -3,12 +3,12 @@ import {
   View,
   StyleSheet,
   Text,
+  Button,
   ActivityIndicator,
 } from "react-native";
 import { WebView } from "react-native-webview";
 import { useDispatch, useSelector } from "react-redux";
 import { BUTTON_TEXT } from "../constants/constants";
-import Button from "../components/Button";
 import RootComponent from "../components/RootComponent";
 import PLANETS from "../constants/planets";
 
@@ -17,16 +17,40 @@ const ReaderArticleScreen = ({ route, navigation }) => {
   const { selectedPlanet } = route.params;
   const { articleIndex } = useSelector((state) => state.article);
   const [currentPlanet, setCurrentPlanet] = useState(selectedPlanet);
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);
+  const webviewRef = useRef(null);
 
-  const webViewRef = useRef(null);
-
-   const onMessage = (event) => {
-     console.log(event.nativeEvent.data);
+   const renderLoadingView = () => {
+     return (
+       <View
+         style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+       >
+         <ActivityIndicator size="large" />
+       </View>
+     );
    };
 
-  
+  const jsToInject = `
+			var current = 0;
+			var headings = $('h2');
+
+			window.addEventListener("message", function(data) {
+				if (data.data === 'Next'){
+					if (headings.length > current) {
+						++current;
+						$("html, body").animate( { scrollTop: headings.eq(current).position().top }, 200);
+					} else {
+						alert('You have reached the end of the page');
+					}
+				} else {
+					if (current > 0) {
+						--current;
+						$("html, body").animate( { scrollTop: headings.eq(current).position().top }, 200);
+					}
+				}
+
+				event.preventDefault();
+			});`;
 
   const getPlanet = () => {
     const planets = Object.values(PLANETS);
@@ -36,42 +60,26 @@ const ReaderArticleScreen = ({ route, navigation }) => {
     return planet;
   };
 
-  const showPrevSection = () => {
-    setCurrentSectionIndex(Math.max(-1, currentSectionIndex - 1));
-    console.log(currentSectionIndex);
-
-    webViewRef.current.injectJavaScript(`
-            try {
-                if (${currentSectionIndex} < 0) {  
-                    window.scrollTo(0, 0);
-                } else {
-                    var sections = document.getElementsByClassName('mw-headline');
-                    if (sections && sections[${currentSectionIndex}]) { sections[${currentSectionIndex}].scrollIntoView(); }
-                }
-            } catch (error) {
-                window.webkit.messageHandlers.ReactNativeWebView.postMessage("Error: " + error.message);
-            }
-            true;
-        `);
+  const handleNext = () => {
+    //Upon clicking on the Next button, the device should navigate to the next heading tag in the page. (This should trigger a scroll to occur inside the web view.)
+    if (webviewRef.current) {
+        webviewRef.current.injectJavaScript(
+            `document.querySelector('h2').scrollIntoView(); 
+            window.postMessage('Next');
+            true;`
+        );
+    }
+    setCurrentHeading(currentHeading + 1);
   };
 
-  const showNextSection = () => {
-    setCurrentSectionIndex(currentSectionIndex + 1);
-    console.log(currentSectionIndex);
-
-    webViewRef.current.injectJavaScript(`
-            try {
-                if (${currentSectionIndex} < 0) {  
-                    window.scrollTo(0, 0);
-                } else {
-                    var sections = document.getElementsByClassName('mw-headline');
-                    if (sections && sections[${currentSectionIndex}]) { sections[${currentSectionIndex}].scrollIntoView(); }
-                }
-            } catch (error) {
-                window.webkit.messageHandlers.ReactNativeWebView.postMessage("Error: " + error.message);
-            }
-            true;
-        `);
+  const handlePrev = () => {
+    //Upon clicking on the Previous button, the device should navigate to the previous heading tag in the page. (This should trigger a scroll to occur inside the web view.)
+    if (webviewRef.current) {
+        webviewRef.current.injectJavaScript(
+            `window.postMessage('Prev');`
+        );
+    }
+    setCurrentHeading(currentHeading - 1);
   };
 
   useEffect(() => {
@@ -98,10 +106,10 @@ const ReaderArticleScreen = ({ route, navigation }) => {
     <RootComponent>
       <View style={styles.screen}>
         <WebView
-          ref={webViewRef}
+          ref={webviewRef}
           source={{ uri: currentPlanet.url }}
           startInLoadingState={true}
-          onMessage={onMessage}
+          injectedJavaScript={jsToInject}
           renderLoading={() => (
             <ActivityIndicator
               color="black"
@@ -122,13 +130,13 @@ const ReaderArticleScreen = ({ route, navigation }) => {
           <Button
             title={BUTTON_TEXT.PREVIOUS}
             onPress={() => {
-                showPrevSection();
+              handlePrev();
             }}
           />
           <Button
             title={BUTTON_TEXT.NEXT}
             onPress={() => {
-                showNextSection();
+              handleNext();
             }}
           />
         </View>

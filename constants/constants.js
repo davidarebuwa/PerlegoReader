@@ -8,7 +8,6 @@ const BUTTON_TEXT = {
     START : "Start",
     NEXT : "Next",
     PREVIOUS : "Previous",
-    MENU : "Menu",
 };
 
 const STRINGS = {

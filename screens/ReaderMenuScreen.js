@@ -76,6 +76,11 @@ const ReaderMenuScreen = (props) => {
             </View>
           )}
         />
+
+        <Button
+            title="Go to Article"
+            onPress={() => props.navigation.navigate("Article")}
+            />
       </View>
     </RootComponent>
   );

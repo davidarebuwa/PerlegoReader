@@ -5,8 +5,6 @@ import PLANETS from "../../constants/planets";
 import { fetchArticleSuccess, fetchArticleFailure } from "./articleActions";
 const { FETCH_ARTICLE_REQUEST } = require("./articleActions").actionTypes;
 
-//REDUNDANT SAGA FUNCTION
-
 function* fetchArticles(action) {
   try {
     const planets = Object.values(PLANETS);
