@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, Button, Image} from "react-native";
+import { View, StyleSheet, Text} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { BUTTON_TEXT, STRINGS } from "../constants/constants";
@@ -39,7 +39,6 @@ const ReaderHomeScreen = (props) => {
 
         <Button
           title="Go to Menu"
-          style={{margin: 10}}
           onPress={() => props.navigation.navigate("Menu")}
         />
         </View>
