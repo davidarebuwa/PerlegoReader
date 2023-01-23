@@ -39,6 +39,9 @@ To run unit tests:
 
 ### `npm test`
 
+This will start Jest and run all the tests in the project.
+
+
 ## Built With
 
 - [React Native](https://reactnative.dev/) - A framework for building mobile apps using React
