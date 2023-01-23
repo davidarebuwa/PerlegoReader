@@ -12,6 +12,15 @@
   </p>
 </p>
 
+### Architecture Overview
+
+Upon opening the app, the user is presented with a home screen. The list of planets and their associated Wikipedia articles are loaded from a JSON file, simulating an API call. This allows for flexibility in the future as the data can be retrieved from any external source. The contents of the file are stored in the app's state using a reducer. Once the user taps on the start button, they are taken to the menu list where they can start exploring the different planets.
+
+The menu list shows a list of planets for the user to choose from. Once the user selects a planet, the app will remember which one was chosen. The user will be taken to the page where they can read about the planet by clicking on the selected one.
+
+On the article screen, the Wikipedia article about the selected planet is displayed in a webview. The next and previous buttons, which are built using React Native, allow the user to navigate through the different headings on the page. When these buttons are pressed, a message is sent to the webview, which then uses javascript to scroll to the next or previous heading.
+
+
 ### Prerequisites
 
 - Node.js
