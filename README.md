@@ -12,9 +12,7 @@
   </p>
 </p>
 
-### Screenshot
 
-    <img src="https://i.imgur.com/wTqzojq.mp4" alt="Logo" width="100" height="100">
 
 
 ### Architecture Overview
