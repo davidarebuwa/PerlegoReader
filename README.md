@@ -1,8 +1,8 @@
-# PerlegoReader
+# Reader
 <br />
 <p align="left">
   <a href="https://github.com/davidarebuwa/PerlegoReader">
-    <img src="https://pbs.twimg.com/profile_images/1306155249640636417/uxhtOhww_400x400.jpg" alt="Logo" width="100" height="100">
+    <img src="https://cdn-icons-png.flaticon.com/512/3453/3453057.png" alt="Logo" width="100" height="100">
   </a>
 
   <p align="left">
@@ -35,7 +35,7 @@ On the article screen, the Wikipedia article about the selected planet is displa
 
 Clone the repository:
 
-https://github.com/davidarebuwa/PerlegoReader.git
+https://github.com/davidarebuwa/Reader.git
 
 Install depencies by running:
 
